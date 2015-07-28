@@ -1,0 +1,41 @@
+{
+   "name" : "Speck Calibration Mode-inator",
+   "short_name" : "Speck Calibration Mode-inator",
+   "description" : "App for putting a Speck into calibration mode.",
+   "version" : "1.0.0",
+   "manifest_version" : 2,
+   "minimum_chrome_version" : "41",
+   "app" : {
+      "background" : {
+         "scripts" : ["main.js"]
+      }
+   },
+   "icons" : {
+      "16" : "images/speck-16.png",
+      "32" : "images/speck-32.png",
+      "64" : "images/speck-64.png",
+      "128" : "images/speck-128.png",
+      "256" : "images/speck-256.png",
+      "512" : "images/speck-512.png",
+      "1024" : "images/speck-1024.png"
+   },
+   "permissions" : [
+      "hid",
+      {
+         "usbDevices" : [
+            {
+               "vendorId" : 9044,
+               "productId" : 13107
+            },
+            {
+               "vendorId" : 9044,
+               "productId" : 13109
+            },
+            {
+               "vendorId" : 11118,
+               "productId" : 13109
+            }
+         ]
+      }
+   ]
+}

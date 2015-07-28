@@ -1,0 +1,32 @@
+html, body {
+  margin: 10px;
+  padding: 0;
+  overflow-y: hidden; }
+
+.spinner {
+  background: transparent url("../images/spinner.gif");
+  background-size: 120px 120px;
+  width: 120px;
+  height: 120px;
+  margin: auto; }
+
+.title {
+  text-align: center;
+  margin-bottom: 20px; }
+
+.table_column_spacer {
+  position: relative;
+  width: 15px;
+  height: 20px;
+  padding: 0;
+  margin: 0; }
+
+.selectable_text {
+  -webkit-user-select: text; }
+
+.main_panel {
+  display: none;
+  margin-top: 50px;
+  text-align: center; }
+
+/*# sourceMappingURL=main.css.map */

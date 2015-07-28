@@ -1,2 +1,3 @@
-# speck-calibration-mode-chrome-app
-Chrome app for putting Speck into calibration mode.
+# Speck Calibration Mode Chrome App
+
+Chrome app for putting a Speck into calibration mode.
