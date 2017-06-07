@@ -57,67 +57,79 @@ var defaultHandler = function(err, result) {
       });
    };
 
+   var loadData = function(){
+      $("#button_panel").hide();
+      $("#please_wait").show();
+
+      console.log("Getting speck config...");
+      speck.getSpeckConfig(function(err, config) {
+         if (err) {
+            $("#initialization_error").show();
+            console.log("Error getting speck config: " + JSON.stringify(err, null, 3));
+            var dialog = $("#unexpected_initialization_error_dialog_container");
+            dialog.modal('show');
+         }
+         else {
+            // Write the serial number and version info.  Split the serial number into groups of
+            // four chars, separated by dashes (got this from http://stackoverflow.com/a/7033662/703200)
+            $("#speck_serial_number").text(config.id.match(/.{1,4}/g).join('-'));
+            $("#hardware_version").text(config.hardwareVersion);
+            $("#firmware_version").text(config.firmwareVersion);
+            $("#protocol_version").text(config.protocolVersion);
+
+            $("#main_container").show();
+
+            if (speck.getApiSupport().hasWifi()) {
+               console.log("Getting wifi status...");
+               speck.getWifiStatus(function(err, wifiStatus) {
+                  if (err) {
+                     $("#mac_address").text("Unknown");
+                  }
+                  else {
+                     console.log("Got wifiStatus: " + JSON.stringify(wifiStatus, null, 3));
+                     $("#mac_address").text(wifiStatus.macAddress.match(/.{1,2}/g).join(':'));
+                  }
+                  $("#please_wait").hide();
+                  $("#button_panel").show();
+                  console.log("Done loading data!");
+               });
+            }
+            else {
+               $("#mac_address").text("n/a");
+               $("#please_wait").hide();
+               $("#button_panel").show();
+            }
+         }
+      });
+   };
+   
    var initialize = function() {
       connectToSpeck(function(theSpeck) {
          speck = theSpeck;
 
-         // first, get the speck's config
-         speck.getSpeckConfig(function(err, config) {
-            $("#spinner").hide();
-            if (err) {
-               $("#initialization_error").show();
-               console.log("Error getting speck config: " + JSON.stringify(err, null, 3));
-               var dialog = $("#unexpected_initialization_error_dialog_container");
-               dialog.modal('show');
-            }
-            else {
-               // Write the serial number and version info.  Split the serial number into groups of
-               // four chars, separated by dashes (got this from http://stackoverflow.com/a/7033662/703200)
-               $("#speck_serial_number").text(config.id.match(/.{1,4}/g).join('-'));
-               $("#hardware_version").text(config.hardwareVersion);
-               $("#firmware_version").text(config.firmwareVersion);
-               $("#protocol_version").text(config.protocolVersion);
-
-               $("#main_container").show();
-
-               if (speck.getApiSupport().hasWifi()) {
-                  speck.getWifiStatus(function(err, wifiStatus) {
-                     if (err) {
-                        $("#mac_address").text("Unknown");
-                     }
-                     else {
-                        $("#mac_address").text(wifiStatus.macAddress.match(/.{1,2}/g).join(':'));
-                     }
-                  });
-               }
-               else {
-                  $("#mac_address").text("n/a");
-               }
-
-               if (speck.getApiSupport().hasCalibrationMode()) {
-                  $("#calibration_mode_supported").show();
-
-                  $("#calibration_mode_button").click(function() {
-                     $("#calibration_mode_supported").hide();
-                     $("#please_wait").show();
-                     speck.putInCalibrationMode(function(err, result) {
-                        // determine which outcome dialog to show
-                        $("#please_wait").hide();
-                        if (err || !result || !result.isCalibrating) {
-                           var dialog = $("#unexpected_calibration_mode_error_dialog_container");
-                           dialog.modal('show');
-                        }
-                        else {
-                           $("#calibration_mode_success").show();
-                        }
-                     });
-                  });
-               }
-               else {
-                  $("#calibration_mode_not_supported").show();
-               }
-            }
+         $("#refresh_button").click(function() {
+            loadData();
          });
+
+         $("#calibration_mode_button").click(function() {
+            $("#button_panel").hide();
+            $("#please_wait").show();
+            speck.putInCalibrationMode(function(err, result) {
+               // determine which outcome dialog to show
+               $("#please_wait").hide();
+               if (err || !result || !result.isCalibrating) {
+                  var dialog = $("#unexpected_calibration_mode_error_dialog_container");
+                  dialog.modal('show');
+               }
+               else {
+                  $("#calibration_mode_success").show();
+               }
+            });
+         });
+
+         // load the data
+         $("#spinner").hide();
+         loadData();
       });
    };
 

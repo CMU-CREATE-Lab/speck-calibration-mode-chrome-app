@@ -25,39 +25,36 @@
          <td><b>Serial Number</b></td>
          <td><div class="table_column_spacer"></div>
          </td>
-         <td><span id="speck_serial_number"></span></td>
+         <td><span id="speck_serial_number">loading...</span></td>
       </tr>
       <tr>
          <td><b>Hardware Version</b></td>
          <td><div class="table_column_spacer"></div>
          </td>
-         <td><span id="hardware_version"></span></td>
+         <td><span id="hardware_version">loading...</span></td>
       </tr>
       <tr>
          <td><b>Firmware Version</b></td>
          <td><div class="table_column_spacer"></div>
          </td>
-         <td><span id="firmware_version"></span></td>
+         <td><span id="firmware_version">loading...</span></td>
       </tr>
       <tr>
          <td><b>Protocol Version</b></td>
          <td><div class="table_column_spacer"></div>
          </td>
-         <td><span id="protocol_version"></span></td>
+         <td><span id="protocol_version">loading...</span></td>
       </tr>
       <tr>
          <td><b>MAC Address</b></td>
          <td><div class="table_column_spacer"></div>
          </td>
-         <td><span id="mac_address">n/a</span></td>
+         <td><span id="mac_address">loading...</span></td>
       </tr>
    </table>
 </div>
 <div class="main_panel" id="initialization_error">
    An error occurred.  Please try unplugging and re-plugging the Speck.
-</div>
-<div class="main_panel" id="calibration_mode_not_supported">
-   This Speck does not support calibration mode.
 </div>
 <div class="main_panel" id="please_wait">
    Please wait...
@@ -65,8 +62,9 @@
 <div class="main_panel" id="calibration_mode_success">
    This Speck is now in calibration mode.
 </div>
-<div class="main_panel" id="calibration_mode_supported">
+<div class="main_panel" id="button_panel">
    <form onsubmit="return false;">
+      <button id="refresh_button" type="button" class="btn btn-default">Refresh</button>
       <button id="calibration_mode_button" type="button" class="btn btn-danger">Put Speck in Calibration Mode</button>
    </form>
 </div>
