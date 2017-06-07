@@ -20,6 +20,9 @@
     </annotationProcessing>
   </component>
   <component name="CopyrightManager" default="" />
+  <component name="Encoding">
+    <file url="PROJECT" charset="x-MacRoman" />
+  </component>
   <component name="InspectionProjectProfileManager">
     <profile version="1.0">
       <option name="myName" value="Project Default" />
@@ -92,7 +95,6 @@
         <array />
       </option>
       <option name="outputFromStdout" value="false" />
-      <option name="passParentEnvs" value="true" />
       <option name="program" value="/usr/bin/scss" />
       <option name="scopeName" value="Project Files" />
       <option name="trackOnlyRoot" value="true" />
